@@ -1,0 +1,63 @@
+{% extends "base.html"%}
+{% block content %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Edit Task</h3>
+
+    <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task._id) }}">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix light-blue-text text-darken-1">event_available</i>
+                    <select id="category_name" name="category_name" class="validate" required>
+                        <option value="" disabled selected>Choose Category</option>
+                        {% for category in categories %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="category_name">Task Category</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix light-blue-text text-darken-1">create</i>
+                    <input id="task_name" name="task_name" type="text" class="validate" minlength="5" maxlength="50" required>
+                    <label for="task_name">Task Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix light-blue-text text-darken-1">textsms</i>
+                    <textarea id="task_description" name="task_description" class="materialize-textarea validate" minlength="5" maxlength="200" required></textarea>
+                    <label for="task_description">Task Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix light-blue-text text-darken-1">date_range</i>
+                    <input type="text" id="due_date" name="due_date" class="datepicker validate" required>
+                    <label for="due_date">Due Date</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12 ">
+                    <div class="switch">
+                        <label for="is_urgent">
+                            <input type="checkbox" id="is_urgent" name="is_urgent">
+                            <span class="lever "></span>
+                            Is Urgent<i class="material-icons red-text tooltipped" data-position="top" data-tooltip="Urgent!">priority_high</i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button class="waves-effect waves-light btn blue darken-1" type="submit" name="action">Edit Task
+                        <i class="material-icons right">send</i>
+                      </button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
