@@ -8,11 +8,17 @@
         {% for task in tasks %}
         <li>
             <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow">
-                <i class="material-icons">expand_more</i>
-                <strong>{{task.task_name}}</strong> : {{task.due_date}}
-                {% if task.is_urgent == "on" %}
-                    <i class="material-icons red-text tooltipped" data-position="top" data-tooltip="Urgent!">priority_high</i>
-                {% endif %}
+                <div class="col s3">
+                    <i class="material-icons">expand_more</i>
+                    <a class="waves-effect cyan lighten-1 waves-light btn-small">Done</a>
+                    <a class="waves-effect light-blue lighten-2 waves-light btn-small">Edit</a>
+                </div>
+                <div class="col s9">
+                    <strong>{{task.task_name}}</strong> : {{task.due_date}}
+                    {% if task.is_urgent == "on" %}
+                        <i class="material-icons red-text tooltipped" data-position="top" data-tooltip="Urgent!">priority_high</i>
+                    {% endif %}
+                </div>
             </div>
             <div class="collapsible-body">
                 <strong>{{task.category_name}}</strong>
