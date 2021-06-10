@@ -10,8 +10,10 @@
             <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow">
                 <div class="col s3">
                     <i class="material-icons">expand_more</i>
-                    <a href="" class="waves-effect cyan lighten-1 waves-light btn-small">Done</a>
-                    <a href="{{ url_for('edit_task', task_id=task._id) }}" class="waves-effect light-blue lighten-2 waves-light btn-small">Edit</a>
+                    {% if session.user|lower == task.created_by|lower %}
+                        <a href="" class="waves-effect cyan lighten-1 waves-light btn-small">Done</a>
+                        <a href="{{ url_for('edit_task', task_id=task._id) }}" class="waves-effect light-blue lighten-2 waves-light btn-small">Edit</a>
+                    {% endif %}
                 </div>
                 <div class="col s9">
                     <strong>{{task.task_name}}</strong> : {{task.due_date}}
