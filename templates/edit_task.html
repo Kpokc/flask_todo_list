@@ -9,9 +9,13 @@
                 <div class="input-field col s12">
                     <i class="material-icons prefix light-blue-text text-darken-1">event_available</i>
                     <select id="category_name" name="category_name" class="validate" required>
-                        <option value="" disabled selected>Choose Category</option>
+                        <option value="" disabled>Choose Category</option>
                         {% for category in categories %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% if category.category_name == task.category_name %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label for="category_name">Task Category</label>
@@ -20,21 +24,23 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix light-blue-text text-darken-1">create</i>
-                    <input id="task_name" name="task_name" type="text" class="validate" minlength="5" maxlength="50" required>
+                    <input value="{{ task.task_name }}" id="task_name" name="task_name" type="text" class="validate" minlength="5" maxlength="50" required>
                     <label for="task_name">Task Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix light-blue-text text-darken-1">textsms</i>
-                    <textarea id="task_description" name="task_description" class="materialize-textarea validate" minlength="5" maxlength="200" required></textarea>
+                    <textarea id="task_description" name="task_description" class="materialize-textarea validate" minlength="5" maxlength="200" required>
+                        {{- task.task_description -}}
+                    </textarea>
                     <label for="task_description">Task Description</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix light-blue-text text-darken-1">date_range</i>
-                    <input type="text" id="due_date" name="due_date" class="datepicker validate" required>
+                    <input type="text" id="due_date" value="{{ task.due_date }}" name="due_date" class="datepicker validate" required>
                     <label for="due_date">Due Date</label>
                 </div>
             </div>
@@ -42,7 +48,11 @@
                 <div class="input-field col s12 ">
                     <div class="switch">
                         <label for="is_urgent">
-                            <input type="checkbox" id="is_urgent" name="is_urgent">
+                            {% if task.is_urgent == "on" %}
+                                <input type="checkbox" id="is_urgent" name="is_urgent" checked>
+                            {% else %}
+                                <input type="checkbox" id="is_urgent" name="is_urgent">
+                            {% endif %}
                             <span class="lever "></span>
                             Is Urgent<i class="material-icons red-text tooltipped" data-position="top" data-tooltip="Urgent!">priority_high</i>
                         </label>
@@ -51,9 +61,14 @@
             </div>
             <div class="row">
                 <div class="col s12 center-align">
+
+                    <a href="{{ url_for('get_tasks') }}" class="btn red text-shadow">
+                        Cancel <i class="material-icons left">not_interested</i>
+                    </a>
+                    
                     <button class="waves-effect waves-light btn blue darken-1" type="submit" name="action">Edit Task
                         <i class="material-icons right">send</i>
-                      </button>
+                    </button>
                 </div>
                 
             </div>
