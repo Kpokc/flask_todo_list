@@ -1,27 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for task in tasks %}
+    <!-- {% for task in tasks %}
         {{task.task_name}}<br>
         {{task.category_name}}<br>
         {{task.task_description}}<br>
         {{task.is_urgent}}<br>
         {{task.due_date}}<hr><br>
-    {% endfor %}
+    {% endfor %} -->
     
     <ul class="collapsible">
+        {% for task in tasks %}
         <li>
-            <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow"><i class="material-icons">expand_more</i>First</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow">
+                <i class="material-icons">expand_more</i>
+                <strong>{{task.task_name}}</strong> : {{task.due_date}}
+                {% if task.is_urgent == "off" %}
+                    <i class="material-icons red-text tooltipped" data-position="top" data-tooltip="Urgent!">priority_high</i>
+                {% endif %}
+            </div>
+            <div class="collapsible-body">
+                <strong>{{task.category_name}}</strong>
+                <p>{{task.task_description}}</p>
+            </div>
         </li>
-        <li>
-            <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow"><i class="material-icons">expand_more</i>Second</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header white-text waves-effect waves-light blue darken-1 text-shadow"><i class="material-icons">expand_more</i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
+        {% endfor %}
     </ul>
 
 {% endblock %}
